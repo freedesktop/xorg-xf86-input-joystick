@@ -30,8 +30,6 @@
 
 #include <xf86.h>
 #include <xf86Xinput.h>
-#include <X11/extensions/XKB.h>
-#include <X11/extensions/XKBstr.h>
 #include <X11/extensions/XKBsrv.h>
 #include <X11/keysym.h>
 #include <X11/XF86keysym.h>
@@ -61,7 +59,6 @@ jstkInitKeys(DeviceIntPtr pJstk, JoystickDevPtr priv)
     CARD8 modMap[MAP_LENGTH];
     KeySym sym;
     int i, j;
-    static XkbComponentNamesRec xkbnames;
     XkbSrvInfoPtr xkbi;
     XkbControlsPtr ctrls;
 
@@ -102,8 +99,7 @@ jstkInitKeys(DeviceIntPtr pJstk, JoystickDevPtr priv)
         }
     }
 
-    XkbSetRulesDflts(__XKBDEFRULES__, "evdev", "us", "nodeadkeys", NULL);
-    XkbInitKeyboardDeviceStruct (pJstk, &xkbnames, &keySyms, modMap,
+    InitKeyboardDeviceStruct ((DevicePtr)pJstk, &keySyms, modMap,
             NULL, jstkKbdCtrl);
 
     /* Set Autorepeat and Delay */
