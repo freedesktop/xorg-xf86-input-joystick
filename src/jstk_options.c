@@ -275,6 +275,10 @@ jstkParseAxisOption(const char* org,
                       name);
     }
 
+    if ((tmp = strstr(param, "valuator")) != NULL ) {
+        axis->valuator = 0; /* Will be renumbered appropriately on DEVICE_INIT */
+    }
+
     if ((tmp = strstr(param, "keylow=")) != NULL) {
         if (sscanf(tmp, "keylow=%30s", p) == 1) {
             char *current, *next;

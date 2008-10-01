@@ -343,8 +343,11 @@ jstkDeviceControlProc(DeviceIntPtr       pJstk,
 
         m = 2;
         for (i=0; i<MAXAXES; i++) 
-            if (priv->axis[i].type != TYPE_NONE)
-                priv->axis[i].valuator = m++;
+            if (priv->axis[i].valuator != -1)
+        {
+            DBG(3, ErrorF("Axis %d will be valuator %d\n", i, m));
+            priv->axis[i].valuator = m++;
+        }
 
         if (InitValuatorClassDeviceStruct(pJstk, 
                                           m,
@@ -371,7 +374,7 @@ jstkDeviceControlProc(DeviceIntPtr       pJstk,
                                    0, /* min_res */
                                    1); /* max_res */
             for (i=0; i<MAXAXES; i++) 
-                if (priv->axis[i].type != TYPE_NONE)
+                if (priv->axis[i].valuator != -1)
             {
                 InitValuatorAxisStruct(pJstk,
                                        priv->axis[i].valuator,

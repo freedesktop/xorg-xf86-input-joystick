@@ -127,6 +127,16 @@ Every axis which's mode is not
 .B none
 will be reported as an additional valuator.
 .TP 7
+.B \*qvaluator\*q
+Send extra valuator events for this axis. The valuators will be numbered ascending, starting with 2 (valuator 0 and 1 are reserved for pointer movement). The range of the valuators is always 
+.IR -32767 " to " 32768 .
+Neither
+.B mode
+nor
+.B axis
+needs to be set to generate extra valuator events.
+Default: not set.
+.TP 7
 .BI "\*qaxis="[<factor>]<axis> \*q
 Where
 .I <axis>
@@ -301,17 +311,6 @@ and the second and fourth axis to the arrow keys
 .IR up " and " down .
 The keys for the first two axes will be generated in an interval according to the value of the axis. The autorepeat speed of the first axis will be half the speed of that of the second axis.
 The keys for the third and fourth axis are generated once when the axis moves out of the deadzone and when it moves back into the deadzone. X.Org will autorepeat those keys according to current keyboard settings.
-
-.SH "VALUATORS"
-The driver reports relative cursor movement as valuators 0 and 1.
-
-Every axis will be associated with an additional valuator,
-reporting the absolute raw values of the axis in the range of
-.IR "-32768 " to " 32768" .
-
-Axes in the mode 
-.B "\*qnone\*q"
-will be ignored. The mode has no effect on the reported value. The axis does not need to be assigned to a direction.
 
 .SH "NOTES"
 The driver does not do hotplugging on it's own. The joystick needs to be plugged in when the driver is loaded.
